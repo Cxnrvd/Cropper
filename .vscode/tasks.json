@@ -1,0 +1,22 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-cropper",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "-mwindows", // no console window
+                "main.c",
+                "-o",
+                "cropper.exe",
+                "-lurlmon",
+                "-lshell32"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

